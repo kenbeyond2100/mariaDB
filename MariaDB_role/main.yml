@@ -1,0 +1,31 @@
+---
+- name: MariaDB
+  hosts: all
+  remote_user: root
+  become: true
+  #vars:
+  #  mysql_root_password: "Password"
+  tasks:
+    - name: install
+      package:
+        name:
+         - mariadb-server
+         - python3-PyMySQL
+        state: latest
+
+    - name: config file
+      copy:
+        src: my.cnf 
+        dest: /etc/mysql/ 
+        mode: '0600'  
+
+    - name: start mariadb
+      service:
+        name: mariadb
+        enabled: true
+        state: started
+    
+
+
+
+  
